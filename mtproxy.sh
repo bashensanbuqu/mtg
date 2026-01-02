@@ -402,7 +402,7 @@ do_config_mtp() {
     cd $WORKDIR
 
     while true; do
-        default_provider=1
+        default_provider=2
         print_subject "请输入要安装的程序版本"
         echo ""
         
@@ -423,7 +423,7 @@ do_config_mtp() {
 
         [ "$SYSTEM_ARCH" != "x86_64" ] && default_provider=2
 
-        read -p "(默认版本: ${default_provider}):" input_provider
+        # read -p "(默认版本: ${default_provider}):" input_provider
         [ -z "${input_provider}" ] && input_provider=${default_provider}
         expr ${input_provider} + 1 &>/dev/null
         if [ $? -eq 0 ]; then
@@ -443,7 +443,7 @@ do_config_mtp() {
     while true; do
         default_port=443
         print_subject "请输入一个客户端连接端口 [1-65535]"
-        read -p "(默认端口: ${default_port}):" input_port
+        # read -p "(默认端口: ${default_port}):" input_port
         [ -z "${input_port}" ] && input_port=${default_port}
         expr ${input_port} + 1 &>/dev/null
         if [ $? -eq 0 ]; then
@@ -464,7 +464,7 @@ do_config_mtp() {
         default_manage=8888
         print_subject "请输入一个管理端口 [1-65535]"
         echo -e "管理端口仅用于查看一些统计数据, 只监听本地网卡不会对外暴露"
-        read -p "(默认端口: ${default_manage}):" input_manage_port
+        # read -p "(默认端口: ${default_manage}):" input_manage_port
         [ -z "${input_manage_port}" ] && input_manage_port=${default_manage}
         expr ${input_manage_port} + 1 &>/dev/null
         if [ $? -eq 0 ] && [ $input_manage_port -ne $input_port ]; then
@@ -484,7 +484,7 @@ do_config_mtp() {
     while true; do
         default_domain="azure.microsoft.com"
         print_subject "请输入一个需要伪装的域名："
-        read -p "(默认域名: ${default_domain}):" input_domain
+        # read -p "(默认域名: ${default_domain}):" input_domain
         [ -z "${input_domain}" ] && input_domain=${default_domain}
         http_code=$(curl -I -m 10 -o /dev/null -s -w %{http_code} $input_domain)
         if [ $http_code -eq "200" ] || [ $http_code -eq "302" ] || [ $http_code -eq "301" ]; then
@@ -509,7 +509,7 @@ do_config_mtp() {
         echo -e "IP: ${PUBLIC_IP}"
         echo -e "PORT: ${input_port}"
         echo -e "SECRET(可以随便填): ${secret}"
-        read -p "(留空则跳过):" input_tag
+        # read -p "(留空则跳过):" input_tag
         [ -z "${input_tag}" ] && input_tag=${default_tag}
         if [ -z "$input_tag" ] || [[ "$input_tag" =~ ^[A-Za-z0-9]{32}$ ]]; then
             echo
@@ -681,7 +681,7 @@ reinstall_mtp() {
         while true; do
             default_keep_config="y"
             print_subject "是否保留配置文件? "
-            read -p "y: 保留 , n: 不保留 (默认: ${default_keep_config}):" input_keep_config
+            # read -p "y: 保留 , n: 不保留 (默认: ${default_keep_config}):" input_keep_config
             [ -z "${input_keep_config}" ] && input_keep_config=${default_keep_config}
 
             if [[ "$input_keep_config" == "y" ]] || [[ "$input_keep_config" == "n" ]]; then
